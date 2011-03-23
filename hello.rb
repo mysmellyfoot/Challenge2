@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'xmlsimple'
 
-
 class Hotel
   attr_accessor :name, :description
  
@@ -15,8 +14,21 @@ class Hotel
     end
 end
 
-def saySomething()
-  puts "\e[H\e[2J"
+def startHotelDatabaseUI()
+
+  @cmd = ""
+  until @cmd == "Q" do
+    sayHello
+    sayHotels
+    print ("")
+    print ("What is your bidding my master? ")
+    @cmd = gets.strip
+  end
+  sayGoodBye()
+end   
+
+def sayHello()
+   puts "\e[H\e[2J"
    print("Welcome to my extraordinary Hotels DB\n")
    print("Please select an option: Q to Quit\n")
    print("\n")
@@ -28,37 +40,30 @@ def saySomething()
    print("Q. Quit\n")
 end
 
+def sayHotels() 
+  if !$hotelHashList.empty?
+    print('You have the following hotels stored\n')
+    printHotelList  
+  end 
+end 
 
-hotelHashList = {}
-
-saySomething
-
-
-cmd = ""
-until cmd == 'Q' do
-   print ("What is your bidding my master? ")
-     cmd = gets
-    print cmd
-    
-    print cmd == 'Q'
-    end
-
-hotelsXml = XmlSimple.xml_out(hotelHashList, 'RootName' => "HotelList")
-
-
+def sayGoodBye()
+   puts "\e[H\e[2J"
+   print("Farewell!\n")
+end
 
 def printHotelList() 
-  print(HotelHashList.to_s)
+  print($hotelHashList.to_s)
 end  
-
-
 
 def addHotel()
   puts( "Hello #{name}" )
   print('Enter description for this hotel:')
   desc = gets()
-  hotelHashList[name] = Hotel.new(name,desc)
+  $hotelHashList[name] = Hotel.new(name,desc)
 end
 
 
+$hotelHashList ={}
+startHotelDatabaseUI
 
