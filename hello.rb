@@ -15,7 +15,6 @@ class Hotel
 end
 
 def startHotelDatabaseUI()
-
   @cmd = ""
   until @cmd == "Q" do
     sayHello
@@ -63,7 +62,5 @@ def addHotel()
   $hotelHashList[name] = Hotel.new(name,desc)
 end
 
-
 $hotelHashList ={}
 startHotelDatabaseUI
-
